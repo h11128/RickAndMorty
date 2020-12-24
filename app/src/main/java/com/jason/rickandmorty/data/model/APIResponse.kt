@@ -21,3 +21,5 @@ class GetMultipleLocation : ArrayList<CharacterLocation>()
 data class GetAllEpisode(val info: Info, val results: List<Episode>)
 
 // GET single Episode response: Episode class
+
+class GetMultipleEpisode : ArrayList<Episode>()
