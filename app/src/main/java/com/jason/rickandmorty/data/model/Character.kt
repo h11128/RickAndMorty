@@ -1,10 +1,14 @@
 package com.jason.rickandmorty.data.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
 // GET single Character
+@Entity
 data class Character(val created: String,
                      val episode: List<String>,
                      val gender: String,
-                     val id: Int,
+                     @PrimaryKey val id: Int,
                      val image: String,
                      val location: SimpleLocation,
                      val name: String,
