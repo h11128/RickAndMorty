@@ -6,7 +6,7 @@ data class Character(val created: String,
                      val gender: String,
                      val id: Int,
                      val image: String,
-                     val location: CharacterLocation,
+                     val location: SimpleLocation,
                      val name: String,
                      val origin: Origin,
                      val species: String,
@@ -14,6 +14,6 @@ data class Character(val created: String,
                      val type: String,
                      val url: String) {}
 
-data class Location(val name: String, val url: String)
+data class SimpleLocation(val name: String, val url: String)
 
 data class Origin(val name: String, val url: String)

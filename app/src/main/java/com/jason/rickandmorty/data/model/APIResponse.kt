@@ -12,11 +12,11 @@ data class GetAllCharacter(val info: Info, val results: List<Character>)
 
 class GetMultipleCharacter : ArrayList<Character>()
 
-data class GetAllLocation(val info: Info, val results: List<CharacterLocation>)
+data class GetAllLocation(val info: Info, val results: List<Location>)
 
 // GET single Location response: Location class
 
-class GetMultipleLocation : ArrayList<CharacterLocation>()
+class GetMultipleLocation : ArrayList<Location>()
 
 data class GetAllEpisode(val info: Info, val results: List<Episode>)
 

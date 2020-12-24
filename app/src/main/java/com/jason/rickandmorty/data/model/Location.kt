@@ -1,6 +1,6 @@
 package com.jason.rickandmorty.data.model
 
-data class CharacterLocation(
+data class Location(
     val created: String,
     val dimension: String,
     val id: Int,
