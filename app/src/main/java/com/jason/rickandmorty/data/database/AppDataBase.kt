@@ -2,6 +2,7 @@ package com.jason.rickandmorty.data.database
 
 import androidx.room.*
 import com.jason.rickandmorty.data.model.Character
+import com.jason.rickandmorty.data.model.Converters
 import com.jason.rickandmorty.data.model.Episode
 import com.jason.rickandmorty.data.model.Location
 import com.jason.rickandmorty.ui.MyApplication
@@ -12,6 +13,7 @@ const val databaseName = "appDatabase"
 @Database(entities = [Character::class, Episode::class, Location::class],
           version = 1,
           exportSchema = false)
+@TypeConverters(Converters::class)
 abstract class AppDataBase : RoomDatabase() {
     abstract fun characterDao(): CharacterDao
     abstract fun locationDao(): LocationDao
@@ -52,7 +54,7 @@ interface CharacterDao {
     fun deleteAll()
 
     @Query("SELECT * FROM character WHERE id Like :id")
-    fun find(id: Int)
+    fun find(id: Int): List<Character>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(characterList: List<Character>)
@@ -79,7 +81,7 @@ interface EpisodeDao {
     fun deleteAll()
 
     @Query("SELECT * FROM episode WHERE id Like :id")
-    fun find(id: Int)
+    fun find(id: Int): List<Episode>
 }
 
 @Dao
@@ -103,5 +105,5 @@ interface LocationDao {
     fun deleteAll()
 
     @Query("SELECT * FROM location WHERE id Like :id")
-    fun find(id: Int)
+    fun find(id: Int): List<Location>
 }

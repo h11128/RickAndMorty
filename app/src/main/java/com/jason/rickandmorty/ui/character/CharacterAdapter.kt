@@ -16,8 +16,8 @@ class CharacterAdapter(): RecyclerView.Adapter<CharacterAdapter.MyViewHolder>() 
     class MyViewHolder(itemView: View, var binding: SingleCharacterBinding): RecyclerView.ViewHolder(itemView) {
         fun bind(character: Character) {
             binding.textName.text = character.name
-            binding.textSpecies.text = character.species
-            binding.textStatus.text = character.status
+            binding.textSpecies.text = "Species: ${character.species}"
+            binding.textStatus.text = "Status: ${character.status}"
             Picasso.get().load(character.image).resize(400, 400).centerCrop().into(binding.imageCharacter)
         }
 

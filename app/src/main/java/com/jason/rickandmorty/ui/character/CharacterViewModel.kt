@@ -2,17 +2,22 @@ package com.jason.rickandmorty.ui.character
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.jason.rickandmorty.data.model.Character
 import com.jason.rickandmorty.data.model.Location
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CharacterViewModel : ViewModel(), CharacterRepository.RepoCallBack {
     val characters = MutableLiveData<List<Character>>()
     val temp_location = MutableLiveData<Location?>()
     val characterRepository = CharacterRepository().apply {
         repoCallBack = this@CharacterViewModel
+    }
+    val isLastPage = MutableLiveData<Boolean>().apply {
+        value = false
     }
     init {
         characters.value = arrayListOf()
@@ -21,8 +26,12 @@ class CharacterViewModel : ViewModel(), CharacterRepository.RepoCallBack {
     }
 
     private fun readCharacter(){
-        CoroutineScope(Dispatchers.IO).launch{
-            characters.value = characterRepository.readCharacter()
+        viewModelScope.launch{
+            var characterList = listOf<Character>()
+            withContext(Dispatchers.IO){
+                characterList = characterRepository.readCharacter()
+            }
+            characters.value = characterList
         }
     }
 
@@ -43,7 +52,7 @@ class CharacterViewModel : ViewModel(), CharacterRepository.RepoCallBack {
     }
 
     override fun onLastPage() {
-        TODO("Not yet implemented")
+        isLastPage.value = true
     }
 
     override fun onGetLocation(location: Location) {

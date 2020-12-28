@@ -1,5 +1,6 @@
 package com.jason.rickandmorty.data.network
 
+import android.util.Log
 import com.jason.rickandmorty.data.model.*
 
 import org.json.JSONObject
