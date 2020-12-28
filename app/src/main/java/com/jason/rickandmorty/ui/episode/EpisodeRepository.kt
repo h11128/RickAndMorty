@@ -18,13 +18,7 @@ const val episode_page_key = "episode_page"
 class EpisodeRepository : CallCenter.APICallBack {
     private val episodeDao: EpisodeDao = AppDataBase.getInstance().episodeDao()
     var repoCallBack: RepoCallBack? = null
-    var total_page = 999
-        set(value) {
-            field = value
-            if (PageManager.getPage(episode_page_key) == value){
-                repoCallBack?.onLastPage()
-            }
-        }
+    var total_page = 4
     interface RepoCallBack{
         fun onDataBaseChange()
         fun onLastPage()
@@ -36,6 +30,10 @@ class EpisodeRepository : CallCenter.APICallBack {
 
     fun loadEpisode() {
         val page = PageManager.getPage(episode_page_key)
+        if (page == total_page){
+            repoCallBack?.onLastPage()
+        }
+        Log.d("abc", "load episode from page $page")
         CallCenter.getAllEpisode(this, page)
     }
 

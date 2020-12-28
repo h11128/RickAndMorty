@@ -42,6 +42,9 @@ class EpisodeViewModel : ViewModel(), EpisodeRepository.RepoCallBack {
     }
 
     override fun onLastPage() {
-        TODO("Not yet implemented")
+        CoroutineScope(Dispatchers.Main).launch{
+            isLastPage.value = true
+        }
+
     }
 }

@@ -1,34 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<FrameLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.character.CharacterFragment"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/recycler_character"
-            android:layout_margin="8dp"
-
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_margin="15dp"
+            android:maxHeight="100dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/text_hint">
 
         </androidx.recyclerview.widget.RecyclerView>
 
         <TextView
             android:id="@+id/text_hint"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:text="@string/initial_character_hint"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
             android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@id/recycler_character"/>
+            android:orientation="vertical"
+            app:layout_constraintStart_toEndOf="@id/recycler_character"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</FrameLayout>
