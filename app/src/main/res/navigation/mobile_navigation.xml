@@ -10,6 +10,9 @@
         android:name="com.jason.rickandmorty.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
+    <action
+        android:id="@+id/action_to_property"
+        app:destination="@id/navigation_home" />
 
     <fragment
         android:id="@+id/navigation_character"

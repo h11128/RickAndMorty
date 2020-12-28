@@ -6,6 +6,8 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_character">Character</string>
     <string name="title_episode">Episode</string>
-    <string name="initial_character_hint">Swipe up to get new character</string>
-    <string name="initial_episode_hint">Swipe up to get new Episode</string>
+    <string name="initial_character_hint">Swipe up from here to get new character</string>
+    <string name="initial_episode_hint">Swipe up from here to get new Episode</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

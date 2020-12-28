@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/recycler_character"
             android:layout_margin="8dp"
+
             app:layout_constraintTop_toTopOf="parent">
 
         </androidx.recyclerview.widget.RecyclerView>

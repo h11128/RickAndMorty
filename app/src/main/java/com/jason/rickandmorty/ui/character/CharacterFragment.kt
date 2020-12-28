@@ -8,8 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jason.rickandmorty.R
+import com.jason.rickandmorty.data.model.Character
 import com.jason.rickandmorty.databinding.FragmentCharacterBinding
 import com.jason.rickandmorty.ui.helper.SwipeDetector
+import android.util.Log
 
 class CharacterFragment : Fragment() {
 
@@ -19,7 +21,9 @@ class CharacterFragment : Fragment() {
 
     private lateinit var viewModel: CharacterViewModel
     private lateinit var binding: FragmentCharacterBinding
-    private val viewAdapter = CharacterAdapter()
+    private val viewAdapter = CharacterAdapter().apply {
+        parentFragment = this@CharacterFragment
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_character, container, false)
@@ -51,8 +55,23 @@ class CharacterFragment : Fragment() {
                     viewModel.loadCharacter()
             }
         })
+        viewModel.temp_location.observe(viewLifecycleOwner, {
+            if (it!= null){
+                val dialogFragment = LocationFragment().apply {
+                    location = it
+                }
+                dialogFragment.showNow(requireActivity().supportFragmentManager, "Location dialog")
+            }
+        })
+    }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.temp_location.value = null
+    }
 
+    fun onCharacterClick(character: Character){
+        viewModel.getCharacterLocation(character)
     }
 
 }

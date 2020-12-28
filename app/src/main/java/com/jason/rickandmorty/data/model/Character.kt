@@ -24,7 +24,7 @@ data class Character(val created: String,
                      val status: String,
                      val type: String,
                      val url: String) {
-    fun getLocationId(): String? {
+    fun getLocationIdFromUrl(): String? {
         val url = location.url
         val strings = url.split("/")
         return if (strings.isNotEmpty()) {
@@ -33,6 +33,19 @@ data class Character(val created: String,
             null
         }
     }
+
+    companion object{
+        fun getIdFromUrl(url: String): Int?{
+            val strings = url.split("/")
+            return if (strings.isNotEmpty()) {
+                strings[strings.lastIndex].toIntOrNull()
+            } else {
+                null
+            }
+        }
+    }
+
+
 }
 
 class Converters {

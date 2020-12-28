@@ -3,22 +3,23 @@ package com.jason.rickandmorty.ui.character
 import android.util.Log
 import com.jason.rickandmorty.data.database.AppDataBase
 import com.jason.rickandmorty.data.database.CharacterDao
+import com.jason.rickandmorty.data.database.LocationDao
 import com.jason.rickandmorty.data.database.PageManager
-import com.jason.rickandmorty.data.model.Character
-import com.jason.rickandmorty.data.model.GetAllCharacter
-import com.jason.rickandmorty.data.model.Location
+import com.jason.rickandmorty.data.model.*
 import com.jason.rickandmorty.data.network.CallCenter
 import com.jason.rickandmorty.data.network.message_get_all_character
+import com.jason.rickandmorty.data.network.message_get_multiple_character
 import com.jason.rickandmorty.data.network.message_get_single_location
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.properties.Delegates
 
 const val character_page_key = "character_page"
 class CharacterRepository : CallCenter.APICallBack {
     private val characterDao: CharacterDao = AppDataBase.getInstance().characterDao()
+    private val locationDao: LocationDao = AppDataBase.getInstance().locationDao()
     var repoCallBack: RepoCallBack? = null
+    var episodeCharacterList = ArrayList<Character>()
     var total_page = 999
         set(value) {
             field = value
@@ -30,6 +31,7 @@ class CharacterRepository : CallCenter.APICallBack {
         fun onDataBaseChange()
         fun onLastPage()
         fun onGetLocation(location: Location)
+        fun onGetEpisodeCharacter(episodeCharacterList: ArrayList<Character>)
     }
 
     fun readCharacter(): List<Character> {
@@ -42,7 +44,9 @@ class CharacterRepository : CallCenter.APICallBack {
     }
 
     override fun notify(message: String?, response: Any?) {
+        Log.d("abc", "message $message reponse $response")
         when (message){
+
             message_get_all_character -> {
                 (response as? GetAllCharacter)?.let {
                     saveCharacter(it.results)
@@ -53,11 +57,23 @@ class CharacterRepository : CallCenter.APICallBack {
             }
             message_get_single_location -> {
                 (response as? Location)?.let {
+
+                    saveLocation(it)
                     repoCallBack?.onGetLocation(it)
                 }
             }
+            message_get_multiple_character -> {
+                (response as? GetMultipleCharacter)?.let{
+                    episodeCharacterList.addAll(it)
+                    saveCharacter(it)
+
+                    repoCallBack?.onGetEpisodeCharacter(episodeCharacterList)
+
+                }
+            }
+
             else -> {
-                Log.d("abc", "message $message reponse $response")
+                //Log.d("abc", "message $message reponse $response")
             }
         }
     }
@@ -69,9 +85,47 @@ class CharacterRepository : CallCenter.APICallBack {
         }
     }
 
-    fun getCharacterLocation(character: Character) {
-        character.getLocationId()?.let{
-            CallCenter.getSingleLocation(this, it)
+    private fun saveLocation(location: Location){
+        CoroutineScope(Dispatchers.IO).launch {
+            locationDao.insert(location)
         }
+
+    }
+
+
+
+
+    fun getCharacterLocation(character: Character) {
+        val location = locationDao.find(character.location.url)
+        if (location.isNotEmpty()){
+            repoCallBack?.onGetLocation(location[0])
+        }
+        else{
+            character.getLocationIdFromUrl()?.let{
+                CallCenter.getSingleLocation(this, it)
+            }
+        }
+    }
+
+    fun getEpisodeCharacter(episode: Episode) {
+        var notLocalCharacterIDString = ""
+        for(url in episode.characters){
+            val search_result = characterDao.find(url)
+            if (search_result.isNotEmpty()){
+                episodeCharacterList.add(search_result[0])
+            }
+            else{
+                notLocalCharacterIDString += "${Character.getIdFromUrl(url)},"
+            }
+        }
+        if (notLocalCharacterIDString.isEmpty()){
+            repoCallBack?.onGetEpisodeCharacter(episodeCharacterList)
+
+        }
+        else{
+            CallCenter.getMultipleCharacter(this, notLocalCharacterIDString)
+        }
+        Log.d("abc", "get multiple character string $notLocalCharacterIDString")
+
     }
 }

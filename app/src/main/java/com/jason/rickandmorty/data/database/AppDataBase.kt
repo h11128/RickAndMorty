@@ -53,8 +53,8 @@ interface CharacterDao {
     @Query("DELETE FROM character")
     fun deleteAll()
 
-    @Query("SELECT * FROM character WHERE id Like :id")
-    fun find(id: Int): List<Character>
+    @Query("SELECT * FROM character WHERE url Like :url")
+    fun find(url: String): List<Character>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(characterList: List<Character>)
@@ -104,6 +104,6 @@ interface LocationDao {
     @Query("DELETE FROM location")
     fun deleteAll()
 
-    @Query("SELECT * FROM location WHERE id Like :id")
-    fun find(id: Int): List<Location>
+    @Query("SELECT * FROM location WHERE url Like :url")
+    fun find(url: String): List<Location>
 }

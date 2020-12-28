@@ -12,10 +12,14 @@ import com.jason.rickandmorty.databinding.SingleEpisodeBinding
 
 class EpisodeAdapter():RecyclerView.Adapter<EpisodeAdapter.MyViewHolder>() {
     var mList = listOf<Episode>()
-    class MyViewHolder(itemView: View, var binding: SingleEpisodeBinding): RecyclerView.ViewHolder(itemView) {
+    var parentFragment: EpisodeFragment? = null
+    class MyViewHolder(itemView: View, var binding: SingleEpisodeBinding, var parentFragment: EpisodeFragment?): RecyclerView.ViewHolder(itemView) {
         fun bind(episode: Episode) {
             binding.textDate.text = episode.air_date
             binding.textTitle.text = episode.getTitle()
+            binding.root.setOnClickListener {
+                parentFragment?.onEpisodeClick(episode)
+            }
         }
 
     }
@@ -23,7 +27,7 @@ class EpisodeAdapter():RecyclerView.Adapter<EpisodeAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.single_episode, parent, false)
         val binding = SingleEpisodeBinding.bind(view)
-        return MyViewHolder(view, binding)
+        return MyViewHolder(view, binding, parentFragment)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {

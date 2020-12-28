@@ -16,6 +16,9 @@ class EpisodeViewModel : ViewModel(), EpisodeRepository.RepoCallBack {
     val episodeRepository = EpisodeRepository().apply {
         repoCallBack = this@EpisodeViewModel
     }
+    val isLastPage = MutableLiveData<Boolean>().apply {
+        value = false
+    }
     init {
         episodes.value = arrayListOf()
         readEpisode()
