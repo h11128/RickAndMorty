@@ -10,4 +10,9 @@ data class Episode(val air_date: String,
                    val episode: String,
                    @PrimaryKey val id: Int,
                    val name: String,
-                   val url: String)
+                   val url: String){
+
+    fun getTitle(): String{
+        return "$episode: $name "
+    }
+}
