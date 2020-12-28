@@ -53,12 +53,18 @@ interface CharacterDao {
 
     @Query("SELECT * FROM character WHERE id Like :id")
     fun find(id: Int)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(characterList: List<Character>)
 }
 
 @Dao
 interface EpisodeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(episode: Episode)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(characterList: List<Episode>)
 
     @Query("SELECT * FROM episode")
     fun readAll(): List<Episode>
@@ -80,6 +86,9 @@ interface EpisodeDao {
 interface LocationDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(location: Location)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(characterList: List<Location>)
 
     @Query("SELECT * FROM location")
     fun readAll(): List<Location>

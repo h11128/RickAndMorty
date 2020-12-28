@@ -16,5 +16,9 @@ class MyApplication: Application() {
         fun getAppContext(): Context{
             return instance.applicationContext
         }
+
+        fun getInstance(): MyApplication{
+            return instance
+        }
     }
 }

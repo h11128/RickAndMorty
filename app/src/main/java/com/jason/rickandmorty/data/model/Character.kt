@@ -16,7 +16,21 @@ data class Character(val created: String,
                      val species: String,
                      val status: String,
                      val type: String,
-                     val url: String) {}
+                     val url: String) {
+    fun getLocationId(): String?{
+        val url = location.url
+        val strings = url.split("/")
+        return if (strings.isNotEmpty()){
+            strings[strings.lastIndex].toIntOrNull().toString()
+        } else{
+            null
+        }
+    }
+
+
+
+
+}
 
 data class SimpleLocation(val name: String, val url: String)
 
