@@ -31,9 +31,9 @@ class CallCenter {
             return "cause ${t.cause} message ${t.message}"
         }
 
-        fun getAllCharacter(callback: APICallBack) {
+        fun getAllCharacter(callback: APICallBack, page: Int) {
             val messageCode = message_get_all_character
-            api.getAllCharacter().enqueue(object : Callback<GetAllCharacter> {
+            api.getAllCharacter(page).enqueue(object : Callback<GetAllCharacter> {
                 override fun onResponse(call: Call<GetAllCharacter>,
                                         response: Response<GetAllCharacter>) {
                     if (response.isSuccessful) {
@@ -92,9 +92,9 @@ class CallCenter {
         }
 
 
-        fun getAllEpisode(callback: APICallBack) {
+        fun getAllEpisode(callback: APICallBack, page: Int) {
             val messageCode = message_get_all_episode
-            api.getAllEpisode().enqueue(object : Callback<GetAllEpisode> {
+            api.getAllEpisode(page).enqueue(object : Callback<GetAllEpisode> {
                 override fun onResponse(call: Call<GetAllEpisode>,
                                         response: Response<GetAllEpisode>) {
                     if (response.isSuccessful) {
@@ -152,9 +152,9 @@ class CallCenter {
             })
         }
 
-        fun getAllLocation(callback: APICallBack) {
+        fun getAllLocation(callback: APICallBack, page: Int) {
             val messageCode = message_get_all_location
-            api.getAllLocation().enqueue(object : Callback<GetAllLocation> {
+            api.getAllLocation(page).enqueue(object : Callback<GetAllLocation> {
                 override fun onResponse(call: Call<GetAllLocation>,
                                         response: Response<GetAllLocation>) {
                     if (response.isSuccessful) {

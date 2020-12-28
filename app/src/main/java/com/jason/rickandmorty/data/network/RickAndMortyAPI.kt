@@ -6,9 +6,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 const val baseUrl = "https://rickandmortyapi.com/api"
-const val endpoint_all_character = "/character"
+const val endpoint_all_character = "/character/"
 const val endpoint_single_character = "/character/{id}"
 const val endpoint_multiple_character = "/character/{id_array}"
 const val endpoint_all_episode = "/episode"
@@ -32,7 +33,10 @@ interface RickAndMortyAPI {
     }
 
     @GET(endpoint_all_character)
-    fun getAllCharacter(): Call<GetAllCharacter>
+    fun getAllCharacter(@Query("page") page: Int): Call<GetAllCharacter>
+
+    @GET(endpoint_all_character)
+    fun getNextPageCharacter(@Path("endpoint") endpoint: String): Call<GetAllCharacter>
 
     @GET(endpoint_single_character)
     fun getSingleCharacter(@Path("id") id: String): Call<Character>
@@ -41,7 +45,7 @@ interface RickAndMortyAPI {
     fun getMultipleCharacter(@Path("id_array") idArray: String): Call<GetMultipleCharacter>
 
     @GET(endpoint_all_episode)
-    fun getAllEpisode(): Call<GetAllEpisode>
+    fun getAllEpisode(@Query("page") page: Int): Call<GetAllEpisode>
 
     @GET(endpoint_single_episode)
     fun getSingleEpisode(@Path("id") id: String): Call<Episode>
@@ -50,7 +54,7 @@ interface RickAndMortyAPI {
     fun getMultipleEpisode(@Path("id_array") idArray: String): Call<GetMultipleEpisode>
 
     @GET(endpoint_all_location)
-    fun getAllLocation(): Call<GetAllLocation>
+    fun getAllLocation(@Query("page") page: Int): Call<GetAllLocation>
 
     @GET(endpoint_single_location)
     fun getSingleLocation(@Path("id") id: String): Call<Location>
