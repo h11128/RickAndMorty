@@ -1,8 +1,6 @@
 package com.jason.rickandmorty.data.database
 
-import android.content.Context
 import android.content.SharedPreferences
-import com.jason.rickandmorty.ui.MyApplication
 import javax.inject.Inject
 
 

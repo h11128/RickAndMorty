@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.jason.rickandmorty.data.network
 
 import com.jason.rickandmorty.data.model.*
@@ -26,7 +28,7 @@ class CallCenter @Inject constructor(private val api: RickAndMortyAPI) {
     }
 
 
-    companion object {}
+    companion object
 
     fun onFailureMessage(t: Throwable): String {
         return "cause ${t.cause} message ${t.message}"

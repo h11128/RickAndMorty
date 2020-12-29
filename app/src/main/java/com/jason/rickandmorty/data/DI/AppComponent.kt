@@ -6,10 +6,8 @@ import com.jason.rickandmorty.data.database.*
 import com.jason.rickandmorty.data.network.RickAndMortyAPI
 import com.jason.rickandmorty.ui.MyApplication
 import com.jason.rickandmorty.ui.character.CharacterFragment
-import com.jason.rickandmorty.ui.character.CharacterRepository
 import com.jason.rickandmorty.ui.episode.EpisodeDetailFragment
 import com.jason.rickandmorty.ui.episode.EpisodeFragment
-import com.jason.rickandmorty.ui.episode.EpisodeRepository
 import dagger.Component
 import dagger.Module
 import dagger.Provides

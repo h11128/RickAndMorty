@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:text="character name"
+            android:text="@string/name"
             android:id="@+id/text_name"
             android:gravity="center"
             app:layout_constraintTop_toTopOf="parent"
@@ -31,14 +31,15 @@
             android:id="@+id/image_character"
             app:layout_constraintTop_toBottomOf="@id/text_name"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/image_character">
 
         </ImageView>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:text="character_status"
+            android:text="@string/name"
             android:id="@+id/text_status"
             app:layout_constraintTop_toBottomOf="@id/image_character"
             app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:text="character_status"
+            android:text="@string/name"
             android:id="@+id/text_species"
             app:layout_constraintTop_toBottomOf="@id/text_status"
             app:layout_constraintStart_toStartOf="parent"

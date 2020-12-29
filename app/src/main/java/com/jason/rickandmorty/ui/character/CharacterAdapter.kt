@@ -1,5 +1,6 @@
 package com.jason.rickandmorty.ui.character
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,11 +11,12 @@ import com.jason.rickandmorty.data.model.Character
 import com.jason.rickandmorty.databinding.SingleCharacterBinding
 import com.squareup.picasso.Picasso
 
-class CharacterAdapter() : RecyclerView.Adapter<CharacterAdapter.MyViewHolder>() {
-    var mList: List<Character> = listOf()
+class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.MyViewHolder>() {
+    private var mList: List<Character> = listOf()
     var parentFragment: CharacterFragment? = null
-    class MyViewHolder(itemView: View, var binding: SingleCharacterBinding, var parentFragment: CharacterFragment?) :
+    class MyViewHolder(itemView: View, private var binding: SingleCharacterBinding, private var parentFragment: CharacterFragment?) :
         RecyclerView.ViewHolder(itemView) {
+        @SuppressLint("SetTextI18n")
         fun bind(character: Character) {
             binding.textName.text = character.name
             binding.textSpecies.text = "Species: ${character.species}"

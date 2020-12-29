@@ -2,12 +2,19 @@
     <string name="app_name">Rick And Morty</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="title_character">Character</string>
     <string name="title_episode">Episode</string>
     <string name="initial_character_hint">Swipe up from here to get new character</string>
     <string name="initial_episode_hint">Swipe up from here to get new Episode</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="episode_detail">Episode Detail</string>
+    <string name="basic_info">Basic Info</string>
+    <string name="name">Name:</string>
+    <string name="air_date">Air Date:</string>
+    <string name="episode">Episode:</string>
+    <string name="url">Url:</string>
+    <string name="character">Character</string>
+    <string name="location">Location</string>
+    <string name="dimension">Dimension:</string>
+    <string name="image_character">image character</string>
 </resources>

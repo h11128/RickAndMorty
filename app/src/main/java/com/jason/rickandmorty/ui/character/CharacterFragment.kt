@@ -1,5 +1,6 @@
 package com.jason.rickandmorty.ui.character
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
@@ -8,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jason.rickandmorty.R
@@ -19,9 +19,7 @@ import com.jason.rickandmorty.ui.helper.SwipeDetector
 import javax.inject.Inject
 
 class CharacterFragment : Fragment() {
-    companion object {
-        fun newInstance() = CharacterFragment()
-    }
+    companion object;
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -51,6 +49,7 @@ class CharacterFragment : Fragment() {
         return view
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         Log.d("CharacterFragment", "OnActivityCreated")
@@ -127,7 +126,7 @@ class CharacterFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.d("CharacterFragment", "OnDestoryView")
+        Log.d("CharacterFragment", "OnDestroyView")
 
     }
 

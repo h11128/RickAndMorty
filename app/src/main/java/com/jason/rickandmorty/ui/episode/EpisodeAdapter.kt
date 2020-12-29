@@ -6,14 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jason.rickandmorty.R
-import com.jason.rickandmorty.data.model.Character
 import com.jason.rickandmorty.data.model.Episode
 import com.jason.rickandmorty.databinding.SingleEpisodeBinding
 
-class EpisodeAdapter():RecyclerView.Adapter<EpisodeAdapter.MyViewHolder>() {
-    var mList = listOf<Episode>()
+class EpisodeAdapter : RecyclerView.Adapter<EpisodeAdapter.MyViewHolder>() {
+    private var mList = listOf<Episode>()
     var parentFragment: EpisodeFragment? = null
-    class MyViewHolder(itemView: View, var binding: SingleEpisodeBinding, var parentFragment: EpisodeFragment?): RecyclerView.ViewHolder(itemView) {
+    class MyViewHolder(itemView: View, private var binding: SingleEpisodeBinding, private var parentFragment: EpisodeFragment?): RecyclerView.ViewHolder(itemView) {
         fun bind(episode: Episode) {
             binding.textDate.text = episode.air_date
             binding.textTitle.text = episode.getTitle()

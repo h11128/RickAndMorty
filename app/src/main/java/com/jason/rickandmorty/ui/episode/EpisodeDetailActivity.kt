@@ -1,5 +1,6 @@
 package com.jason.rickandmorty.ui.episode
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -21,10 +22,11 @@ class EpisodeDetailActivity : AppCompatActivity() {
         binding = ActivityEpisodeDetailBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         episode = intent.getSerializableExtra("episode") as Episode
-        setTitle("Episode Detail")
+        title = "Episode Detail"
         init()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun init() {
         viewModel = ViewModelProvider(this).get(CharacterViewModel::class.java)
         viewModel.episodeCharacter.observe(this, { characterList ->

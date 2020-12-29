@@ -49,7 +49,7 @@ class EpisodeRepository @Inject constructor(private val callCenter: CallCenter,
                 }
             }
             else                    -> {
-                Log.d("abc", "message $message reponse $response")
+                Log.d("abc", "message $message response $response")
             }
         }
     }

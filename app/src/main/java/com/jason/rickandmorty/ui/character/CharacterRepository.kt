@@ -48,7 +48,7 @@ class CharacterRepository @Inject constructor(private val characterDao: Characte
     }
 
     override fun notify(message: String?, response: Any?) {
-        Log.d("abc", "message $message reponse $response")
+        Log.d("abc", "message $message response $response")
         when (message) {
 
             message_get_all_character -> {
@@ -77,7 +77,7 @@ class CharacterRepository @Inject constructor(private val characterDao: Characte
             }
 
             else                           -> {
-                //Log.d("abc", "message $message reponse $response")
+                //Log.d("abc", "message $message response $response")
             }
         }
     }
@@ -111,9 +111,9 @@ class CharacterRepository @Inject constructor(private val characterDao: Characte
     fun getEpisodeCharacter(episode: Episode) {
         var notLocalCharacterIDString = ""
         for (url in episode.characters) {
-            val search_result = characterDao.find(url)
-            if (search_result.isNotEmpty()) {
-                episodeCharacterList.add(search_result[0])
+            val searchResult = characterDao.find(url)
+            if (searchResult.isNotEmpty()) {
+                episodeCharacterList.add(searchResult[0])
             } else {
                 notLocalCharacterIDString += "${Character.getIdFromUrl(url)},"
             }

@@ -2,17 +2,13 @@ package com.jason.rickandmorty.ui.episode
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.jason.rickandmorty.data.model.Character
 import com.jason.rickandmorty.data.model.Episode
-import com.jason.rickandmorty.ui.episode.EpisodeRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class EpisodeViewModel @Inject constructor(val episodeRepository: EpisodeRepository) : ViewModel(), EpisodeRepository.RepoCallBack {
+class EpisodeViewModel @Inject constructor(private val episodeRepository: EpisodeRepository) : ViewModel(), EpisodeRepository.RepoCallBack {
     val episodes = MutableLiveData<List<Episode>>()
     val isLastPage = MutableLiveData<Boolean>().apply {
         value = false

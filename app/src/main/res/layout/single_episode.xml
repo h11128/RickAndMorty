@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="episode title"
+            android:text="@string/name"
             android:id="@+id/text_title"
             android:gravity="center"
             app:layout_constraintTop_toTopOf="parent">
@@ -23,7 +23,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="episode date"
+            android:text="@string/name"
             android:id="@+id/text_date"
             android:gravity="center"
             app:layout_constraintTop_toBottomOf="@id/text_title">

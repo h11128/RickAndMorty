@@ -11,7 +11,7 @@ const val swipe_error = "SwipeDetector error"
 const val default_log = "please pass SwipeDetector.OnSwipeEvent Interface instance"
 
 class SwipeDetector(private val v: View) : OnTouchListener {
-    private var min_distance = 100
+    private var minDistance1 = 100
     private var downX = 0f
     private var downY = 0f
     private var upX = 0f
@@ -65,7 +65,7 @@ class SwipeDetector(private val v: View) : OnTouchListener {
 
                 //HORIZONTAL SCROLL
                 if (abs(deltaX) > abs(deltaY)) {
-                    if (abs(deltaX) > min_distance) {
+                    if (abs(deltaX) > minDistance1) {
                         // left or right
                         if (deltaX < 0) {
                             onLeftToRightSwipe()
@@ -80,7 +80,7 @@ class SwipeDetector(private val v: View) : OnTouchListener {
                         return false
                     }
                 } else {
-                    if (abs(deltaY) > min_distance) {
+                    if (abs(deltaY) > minDistance1) {
                         // top or down
                         if (deltaY < 0) {
                             onTopToBottomSwipe()
@@ -103,11 +103,6 @@ class SwipeDetector(private val v: View) : OnTouchListener {
 
     interface OnSwipeEvent {
         fun swipeEventDetected(v: View?, swipeType: SwipeTypeEnum?)
-    }
-
-    fun setMinDistanceInPixels(minDistance: Int): SwipeDetector {
-        this.min_distance = minDistance
-        return this
     }
 
     enum class SwipeTypeEnum {

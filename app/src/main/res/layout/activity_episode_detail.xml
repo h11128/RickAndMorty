@@ -10,7 +10,7 @@
     android:scrollbars="vertical">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         >
         <TextView
             android:id="@+id/text_title"
@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:gravity="center"
-            android:text="Episode Detail"
+            android:text="@string/episode_detail"
             android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:text="Basic Info"
+            android:text="@string/basic_info"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,7 @@
                 android:id="@+id/text_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Name: "
+                android:text="@string/name"
                 android:gravity="center"
 
                 android:textSize="15sp" />
@@ -63,7 +63,7 @@
                 android:id="@+id/text_air_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Air Date: "
+                android:text="@string/air_date"
                 android:gravity="center"
 
                 android:textSize="15sp" />
@@ -72,7 +72,7 @@
                 android:id="@+id/text_episode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Episode: "
+                android:text="@string/episode"
                 android:gravity="center"
 
                 android:textSize="15sp" />
@@ -81,7 +81,7 @@
                 android:id="@+id/text_url"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Url: "
+                android:text="@string/url"
                 android:gravity="center"
 
                 android:textSize="15sp" />
@@ -93,8 +93,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:text="Character"
-            android:textSize="18dp"
+            android:text="@string/character"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/linear_info"

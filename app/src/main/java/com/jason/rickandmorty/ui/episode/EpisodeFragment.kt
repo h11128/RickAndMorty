@@ -1,5 +1,6 @@
 package com.jason.rickandmorty.ui.episode
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -9,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jason.rickandmorty.R
@@ -21,9 +21,7 @@ import javax.inject.Inject
 
 class EpisodeFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = EpisodeFragment()
-    }
+    companion object;
 
     @Inject
     lateinit var viewModel: EpisodeViewModel
@@ -54,6 +52,7 @@ class EpisodeFragment : Fragment() {
 
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         Log.d("EpisodeFragment", "OnActivityCreated")
@@ -129,7 +128,7 @@ class EpisodeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.d("EpisodeFragment", "OnDestoryView")
+        Log.d("EpisodeFragment", "OnDestroyView")
 
     }
 
