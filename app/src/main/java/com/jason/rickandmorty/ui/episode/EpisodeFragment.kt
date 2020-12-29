@@ -1,5 +1,6 @@
 package com.jason.rickandmorty.ui.episode
 
+import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
@@ -14,7 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.jason.rickandmorty.R
 import com.jason.rickandmorty.data.model.Episode
 import com.jason.rickandmorty.databinding.FragmentEpisodeBinding
+import com.jason.rickandmorty.ui.MyApplication
 import com.jason.rickandmorty.ui.helper.SwipeDetector
+import javax.inject.Inject
 
 class EpisodeFragment : Fragment() {
 
@@ -22,22 +25,40 @@ class EpisodeFragment : Fragment() {
         fun newInstance() = EpisodeFragment()
     }
 
-    private lateinit var viewModel: EpisodeViewModel
+    @Inject
+    lateinit var viewModel: EpisodeViewModel
     private lateinit var binding: FragmentEpisodeBinding
     private val viewAdapter = EpisodeAdapter().apply {
         parentFragment = this@EpisodeFragment
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        MyApplication.appComponent.inject(this)
+        Log.d("EpisodeFragment", "OnAttach")
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("EpisodeFragment", "OnCreate")
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_episode, container, false)
         binding = FragmentEpisodeBinding.bind(view)
+        Log.d("EpisodeFragment", "OnCreateView")
+
         return view
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(EpisodeViewModel::class.java)
+        Log.d("EpisodeFragment", "OnActivityCreated")
+
+        //viewModel = ViewModelProvider(this).get(EpisodeViewModel::class.java)
         viewModel.isLastPage.observe(viewLifecycleOwner, {
             if (binding.root.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 if (it) {
@@ -82,6 +103,47 @@ class EpisodeFragment : Fragment() {
                 }
             })
     }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d("EpisodeFragment", "OnStart")
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("EpisodeFragment", "OnResume")
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("EpisodeFragment", "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("EpisodeFragment", "OnStop")
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d("EpisodeFragment", "OnDestoryView")
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("EpisodeFragment", "OnDestroy")
+
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Log.d("EpisodeFragment", "OnDetach")
+    }
+
 
     fun onEpisodeClick(episode: Episode) {
         val intent = Intent(requireActivity(), EpisodeDetailActivity::class.java)

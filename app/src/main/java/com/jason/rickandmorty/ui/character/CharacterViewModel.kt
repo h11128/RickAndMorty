@@ -11,48 +11,49 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class CharacterViewModel : ViewModel(), CharacterRepository.RepoCallBack {
+class CharacterViewModel @Inject constructor(private val characterRepository: CharacterRepository) :
+    ViewModel(), CharacterRepository.RepoCallBack {
     val characters = MutableLiveData<List<Character>>()
-    val temp_location = MutableLiveData<Location?>()
-    val episode_character = MutableLiveData<List<Character>>()
-    val characterRepository = CharacterRepository().apply {
-        repoCallBack = this@CharacterViewModel
-    }
+    val tempLocation = MutableLiveData<Location?>()
+    val episodeCharacter = MutableLiveData<List<Character>>()
     val isLastPage = MutableLiveData<Boolean>().apply {
         value = false
     }
+
     init {
+        characterRepository.repoCallBack = this@CharacterViewModel
         characters.value = arrayListOf()
-        temp_location.value = null
-        episode_character.value = null
+        tempLocation.value = null
+        episodeCharacter.value = null
         readCharacter()
     }
 
-    private fun readCharacter(){
-        viewModelScope.launch{
+    private fun readCharacter() {
+        viewModelScope.launch {
             var characterList = listOf<Character>()
-            withContext(Dispatchers.IO){
+            withContext(Dispatchers.IO) {
                 characterList = characterRepository.readCharacter()
             }
             characters.value = characterList
         }
     }
 
-    fun loadCharacter(){
-        CoroutineScope(Dispatchers.IO).launch{
+    fun loadCharacter() {
+        CoroutineScope(Dispatchers.IO).launch {
             characterRepository.loadCharacter()
         }
     }
 
-    fun getEpisodeCharacter(episode: Episode){
-        CoroutineScope(Dispatchers.IO).launch{
+    fun getEpisodeCharacter(episode: Episode) {
+        CoroutineScope(Dispatchers.IO).launch {
             characterRepository.getEpisodeCharacter(episode)
         }
     }
 
-    fun getCharacterLocation(character: Character){
-        CoroutineScope(Dispatchers.IO).launch{
+    fun getCharacterLocation(character: Character) {
+        CoroutineScope(Dispatchers.IO).launch {
             characterRepository.getCharacterLocation(character)
         }
     }
@@ -67,8 +68,8 @@ class CharacterViewModel : ViewModel(), CharacterRepository.RepoCallBack {
 
     override fun onGetLocation(location: Location) {
         viewModelScope.launch {
-            withContext(Dispatchers.Main){
-                temp_location.value = location
+            withContext(Dispatchers.Main) {
+                tempLocation.value = location
             }
         }
     }
@@ -76,9 +77,9 @@ class CharacterViewModel : ViewModel(), CharacterRepository.RepoCallBack {
     override fun onGetEpisodeCharacter(episodeCharacterList: ArrayList<Character>) {
         Log.d("abc", "get ${episodeCharacterList.size} character for episode")
         viewModelScope.launch {
-            withContext(Dispatchers.Main){
-                episode_character.value = episodeCharacterList.toList()
-                Log.d("abc", "current size ${episode_character.value!!.size} character for episode")
+            withContext(Dispatchers.Main) {
+                episodeCharacter.value = episodeCharacterList.toList()
+                Log.d("abc", "current size ${episodeCharacter.value!!.size} character for episode")
                 characterRepository.episodeCharacterList.clear()
             }
         }

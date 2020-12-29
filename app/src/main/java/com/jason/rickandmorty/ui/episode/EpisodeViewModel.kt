@@ -10,16 +10,15 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class EpisodeViewModel : ViewModel(), EpisodeRepository.RepoCallBack {
+class EpisodeViewModel @Inject constructor(val episodeRepository: EpisodeRepository) : ViewModel(), EpisodeRepository.RepoCallBack {
     val episodes = MutableLiveData<List<Episode>>()
-    val episodeRepository = EpisodeRepository().apply {
-        repoCallBack = this@EpisodeViewModel
-    }
     val isLastPage = MutableLiveData<Boolean>().apply {
         value = false
     }
     init {
+        episodeRepository.repoCallBack = this
         episodes.value = arrayListOf()
         readEpisode()
     }
@@ -34,7 +33,6 @@ class EpisodeViewModel : ViewModel(), EpisodeRepository.RepoCallBack {
         CoroutineScope(Dispatchers.IO).launch{
             episodeRepository.loadEpisode()
         }
-
     }
 
     override fun onDataBaseChange() {

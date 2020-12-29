@@ -1,48 +1,69 @@
 package com.jason.rickandmorty.ui.character
 
+import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jason.rickandmorty.R
 import com.jason.rickandmorty.data.model.Character
 import com.jason.rickandmorty.databinding.FragmentCharacterBinding
+import com.jason.rickandmorty.ui.MyApplication
 import com.jason.rickandmorty.ui.helper.SwipeDetector
-import android.util.Log
-import androidx.recyclerview.widget.GridLayoutManager
+import javax.inject.Inject
 
 class CharacterFragment : Fragment() {
-
     companion object {
         fun newInstance() = CharacterFragment()
     }
 
-    private lateinit var viewModel: CharacterViewModel
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        MyApplication.appComponent.inject(this)
+        Log.d("CharacterFragment", "OnAttach")
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("CharacterFragment", "OnCreate")
+
+    }
+
+    @Inject
+    lateinit var viewModel: CharacterViewModel
     private lateinit var binding: FragmentCharacterBinding
     private val viewAdapter = CharacterAdapter().apply {
         parentFragment = this@CharacterFragment
     }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_character, container, false)
         binding = FragmentCharacterBinding.bind(view)
+        Log.d("CharacterFragment", "OnCreateView")
+
         return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(CharacterViewModel::class.java)
+        Log.d("CharacterFragment", "OnActivityCreated")
+
+        //viewModel = ViewModelProvider(this).get(CharacterViewModel::class.java)
         binding.recyclerCharacter.apply {
             adapter = viewAdapter
-            layoutManager = if (binding.root.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
-            } else {
-                LinearLayoutManager(requireContext())
-            }
+            layoutManager =
+                if (binding.root.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
+                } else {
+                    LinearLayoutManager(requireContext())
+                }
         }
 
         viewModel.characters.observe(viewLifecycleOwner, {
@@ -76,8 +97,8 @@ class CharacterFragment : Fragment() {
                 }
             }
         })
-        viewModel.temp_location.observe(viewLifecycleOwner, {
-            if (it!= null){
+        viewModel.tempLocation.observe(viewLifecycleOwner, {
+            if (it != null) {
                 val dialogFragment = LocationFragment().apply {
                     location = it
                 }
@@ -86,12 +107,48 @@ class CharacterFragment : Fragment() {
         })
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.temp_location.value = null
+    override fun onStart() {
+        super.onStart()
+        Log.d("CharacterFragment", "OnStart")
+
     }
 
-    fun onCharacterClick(character: Character){
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("CharacterFragment", "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("CharacterFragment", "OnStop")
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d("CharacterFragment", "OnDestoryView")
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("CharacterFragment", "OnDestroy")
+
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Log.d("CharacterFragment", "OnDetach")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("CharacterFragment", "OnResume")
+        viewModel.tempLocation.value = null
+    }
+
+    fun onCharacterClick(character: Character) {
         viewModel.getCharacterLocation(character)
     }
 

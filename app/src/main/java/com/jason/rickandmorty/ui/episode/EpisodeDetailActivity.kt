@@ -6,12 +6,8 @@ import android.os.Handler
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.jason.rickandmorty.R
 import com.jason.rickandmorty.data.model.Episode
 import com.jason.rickandmorty.databinding.ActivityEpisodeDetailBinding
-import com.jason.rickandmorty.databinding.ActivityMainBinding
-import com.jason.rickandmorty.databinding.FragmentEpisodeDetailBinding
 import com.jason.rickandmorty.ui.character.CharacterAdapter
 import com.jason.rickandmorty.ui.character.CharacterViewModel
 
@@ -31,7 +27,7 @@ class EpisodeDetailActivity : AppCompatActivity() {
 
     private fun init() {
         viewModel = ViewModelProvider(this).get(CharacterViewModel::class.java)
-        viewModel.episode_character.observe(this, { characterList ->
+        viewModel.episodeCharacter.observe(this, { characterList ->
             if (characterList != null){
                 Log.d("abc", "observe episode character ${characterList.size}")
                 viewAdapter.refreshDataList(characterList)

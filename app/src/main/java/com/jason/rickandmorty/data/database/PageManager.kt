@@ -3,13 +3,29 @@ package com.jason.rickandmorty.data.database
 import android.content.Context
 import android.content.SharedPreferences
 import com.jason.rickandmorty.ui.MyApplication
+import javax.inject.Inject
 
 
 const val file_name: String = "PageData"
 const val default_page: Int = 1
-class PageManager {
+class PageManager @Inject constructor(val instance: SharedPreferences) {
+    fun putPage(key: String, value: Int) {
+        with(instance.edit()) {
+            putInt(key, value)
+            apply()
+        }
+    }
 
-    companion object{
+    fun getPage(key: String, default: Int = default_page): Int {
+        return instance.getInt(key, default)
+    }
+
+    fun incrementPage(key: String){
+        val page = getPage(key) + 1
+        putPage(key, page)
+    }
+
+/*    companion object{
         private var sharedPreferences: SharedPreferences? = null
 
         val instance: SharedPreferences
@@ -19,22 +35,6 @@ class PageManager {
                     sharedPreferences!!
                 }
             }
-
-        fun putPage(key: String, value: Int) {
-            with(instance.edit()) {
-                putInt(key, value)
-                apply()
-            }
-        }
-
-        fun getPage(key: String, default: Int = default_page): Int {
-            return instance.getInt(key, default)
-        }
-
-        fun incrementPage(key: String){
-            val page = getPage(key) + 1
-            putPage(key, page)
-        }
-    }
+    }*/
 
 }
